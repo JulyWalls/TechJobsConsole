@@ -38,6 +38,45 @@ namespace TechJobsConsole
             return values;
         }
 
+        //My code, just specifying so I can find it easily
+        public static List<Dictionary<string, string>> FindByValue( string columns, string value)
+        {
+            LoadData();
+
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+            List<string> allRows = new List<string>();
+            allRows.Add("name");
+            allRows.Add("employer");
+            allRows.Add("position type");
+            allRows.Add("location");
+            allRows.Add("core competency");
+
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                int increment = 0;
+                foreach (string i in allRows)
+                {
+                    string aValue = row[allRows[increment]];
+                    increment = 1 + increment;
+
+                    if (aValue.ToLower().Contains(value.ToLower()))
+                    {
+                        if (!jobs.Contains(row))
+                        {
+                            jobs.Add(row);
+                        }
+                        
+                    }
+
+                }
+
+            }
+
+            return jobs;
+        }
+        //code ends
+
         public static List<Dictionary<string, string>> FindByColumnAndValue(string column, string value)
         {
             // load data, if not already loaded
@@ -49,7 +88,7 @@ namespace TechJobsConsole
             {
                 string aValue = row[column];
 
-                if (aValue.Contains(value))
+                if (aValue.ToLower().Contains(value.ToLower()))
                 {
                     jobs.Add(row);
                 }
